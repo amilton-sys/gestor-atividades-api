@@ -19,7 +19,9 @@ public class Atividade {
     private LocalDate dataInicio;
     private LocalDate dataFim;
     @OneToMany
+    @JoinColumn(name = "atividade_id")
     private List<Participante> participantes;
     @OneToMany
+    @JoinColumn(name = "atividade_id")
     private List<Recurso> recursos;
 }
