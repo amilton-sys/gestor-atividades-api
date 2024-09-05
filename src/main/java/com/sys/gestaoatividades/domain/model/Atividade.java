@@ -19,9 +19,19 @@ public class Atividade {
     private LocalDate dataInicio;
     private LocalDate dataFim;
     @OneToMany
-    @JoinColumn(name = "atividade_id")
+    @JoinTable(name = "atividade_participante",
+            joinColumns = @JoinColumn(name = "atividade_id"),
+            inverseJoinColumns = @JoinColumn(name = "participante_id")
+    )
     private List<Participante> participantes;
     @OneToMany
-    @JoinColumn(name = "atividade_id")
+    @JoinTable(name = "atividade_recurso",
+            joinColumns = @JoinColumn(name = "atividade_id"),
+            inverseJoinColumns = @JoinColumn(name = "recurso_id")
+    )
     private List<Recurso> recursos;
+
+    public boolean isDatesValid() {
+        return this.dataInicio.isBefore(this.dataFim);
+    }
 }

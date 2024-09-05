@@ -14,4 +14,7 @@ public class Recurso {
     private Integer id;
     private String nome;
     private String tipo;
+    private boolean disponivel;
+    @ManyToOne
+    private Atividade atividade;
 }
