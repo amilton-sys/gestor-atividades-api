@@ -14,8 +14,8 @@ public class CadastroParticipante {
     }
 
     @Transactional
-    public void cadastrar(Participante participante) {
-        participanteRepository.save(participante);
+    public Participante cadastrar(Participante participante) {
+        return participanteRepository.save(participante);
     }
 
     public Participante buscar(Integer id) {
