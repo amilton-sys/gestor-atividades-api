@@ -6,9 +6,9 @@ INSERT INTO recurso (id, nome, tipo, disponivel) VALUES (1, 'Projetor', 'Equipam
 INSERT INTO recurso (id, nome, tipo, disponivel) VALUES (2, 'Notebook', 'Equipamento',true);
 INSERT INTO recurso (id, nome, tipo,disponivel) VALUES (3, 'Quadro branco', 'Equipamento',false);
 
-INSERT INTO atividade (id, data_fim, data_inicio, nome) VALUES (1, '2024-09-30', '2024-09-01', 'Reunião de Planejamento');
+-- INSERT INTO atividade (id, data_fim, data_inicio, nome) VALUES (1, '2024-09-30', '2024-09-01', 'Reunião de Planejamento');
 
-INSERT INTO atividade_participante (atividade_id, participante_id) VALUES (1,1);
+-- INSERT INTO atividade_participante (atividade_id, participante_id) VALUES (1,1);
 
-INSERT INTO atividade_recurso (atividade_id, recurso_id) VALUES (1,1)
+-- INSERT INTO atividade_recurso (atividade_id, recurso_id) VALUES (1,1)
 

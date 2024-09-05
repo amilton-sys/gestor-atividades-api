@@ -6,10 +6,11 @@ import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
 public class Atividade {
     @EqualsAndHashCode.Include
     @Id
@@ -24,6 +25,7 @@ public class Atividade {
             inverseJoinColumns = @JoinColumn(name = "participante_id")
     )
     private List<Participante> participantes;
+
     @OneToMany
     @JoinTable(name = "atividade_recurso",
             joinColumns = @JoinColumn(name = "atividade_id"),

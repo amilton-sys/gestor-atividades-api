@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
 public class Recurso {
     @EqualsAndHashCode.Include
     @Id

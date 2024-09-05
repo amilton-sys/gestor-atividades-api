@@ -8,6 +8,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CadastroAtividade {
     private final AtividadeRepository atividadeRepository;
@@ -22,13 +24,16 @@ public class CadastroAtividade {
 
     @Transactional
     public Atividade cadastrar(Atividade atividade, Integer recursoId, Integer participanteId) {
+        if (!atividade.isDatesValid()) {
+            throw new RuntimeException("A data de inicio não pode ser maior que a data final.");
+        }
         Participante participante = cadastroParticipante.buscar(participanteId);
         if (participante.alreadyHaveOneActivity()) {
             throw new RuntimeException("O participante já pertence a uma atividade.");
         }
         participante.setAtividade(atividade);
         Recurso recurso = cadastroRecurso.buscar(recursoId);
-        if (!recurso.isDisponivel()){
+        if (!recurso.isDisponivel()) {
             throw new RuntimeException("O Recurso não está disponivel no momento.");
         }
         recurso.setAtividade(atividade);
