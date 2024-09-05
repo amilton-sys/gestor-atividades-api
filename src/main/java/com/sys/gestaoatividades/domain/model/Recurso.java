@@ -1,6 +1,9 @@
 package com.sys.gestaoatividades.domain.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,7 +17,5 @@ public class Recurso {
     private Integer id;
     private String nome;
     private String tipo;
-    private boolean disponivel;
-    @ManyToOne
-    private Atividade atividade;
+    private boolean disponivel = true;
 }

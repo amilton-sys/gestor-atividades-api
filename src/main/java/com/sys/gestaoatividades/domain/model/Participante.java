@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
@@ -12,16 +14,9 @@ public class Participante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Embedded
-    private Pessoa pessoa;
+    private String nome;
+    private String email;
+    private String telefone;
     @Embedded
     private Endereco endereco;
-    @Embedded
-    private Contato contato;
-    @ManyToOne
-    private Atividade atividade;
-
-    public boolean alreadyHaveOneActivity() {
-        return this.getAtividade() != null;
-    }
 }

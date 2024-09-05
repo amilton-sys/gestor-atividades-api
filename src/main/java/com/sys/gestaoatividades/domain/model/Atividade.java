@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,21 +19,26 @@ public class Atividade {
     private String nome;
     private LocalDate dataInicio;
     private LocalDate dataFim;
-    @OneToMany
+
+    @ManyToMany
     @JoinTable(name = "atividade_participante",
             joinColumns = @JoinColumn(name = "atividade_id"),
             inverseJoinColumns = @JoinColumn(name = "participante_id")
     )
-    private List<Participante> participantes;
+    private Set<Participante> participantes = new HashSet<>();
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "atividade_recurso",
             joinColumns = @JoinColumn(name = "atividade_id"),
             inverseJoinColumns = @JoinColumn(name = "recurso_id")
     )
-    private List<Recurso> recursos;
+    private Set<Recurso> recursos = new HashSet<>();
 
-    public boolean isDatesValid() {
-        return this.dataInicio.isBefore(this.dataFim);
+    public void associarParticipante(Participante participante) {
+        getParticipantes().add(participante);
+    }
+
+    public void associar(Recurso recurso) {
+        getRecursos().add(recurso);
     }
 }

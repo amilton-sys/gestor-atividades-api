@@ -4,5 +4,5 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Pessoa {
-    private String nome;
+
 }
