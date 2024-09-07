@@ -19,6 +19,8 @@ public class Atividade {
     private String nome;
     private LocalDate dataInicio;
     private LocalDate dataFim;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.INSCRICOES;
 
     @ManyToMany
     @JoinTable(name = "atividade_participante",
@@ -40,5 +42,32 @@ public class Atividade {
 
     public void associar(Recurso recurso) {
         getRecursos().add(recurso);
+    }
+
+    public boolean isAfterInitActivity() {
+        var today = LocalDate.now();
+        return dataInicio.isBefore(today);
+    }
+
+    public void iniciar() {
+        this.setDataInicio(LocalDate.now());
+        this.setStatus(Status.INICIADA);
+    }
+
+    public void finalizar() {
+        this.setDataFim(LocalDate.now());
+        this.setStatus(Status.FINALIZADA);
+    }
+
+    public boolean isFinalizado() {
+        return status == Status.FINALIZADA;
+    }
+
+    public boolean isInicializada() {
+        return status == Status.INICIADA;
+    }
+
+    public boolean ifPresent(Participante participante) {
+        return getParticipantes().contains(participante);
     }
 }

@@ -27,14 +27,26 @@ public class AtividadeController {
     }
 
     @PostMapping
-    public ResponseEntity<AtividadeModel> cadastrar(@RequestBody @Valid AtividadeInput atividadeInput, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<AtividadeModel> cadastrar(@RequestBody @Valid AtividadeInput atividadeInput) {
         Atividade atividade = atividadeMapper.toObject(atividadeInput);
         Atividade atividadeCadastrada = cadastroAtividade.cadastrar(atividade);
-        var uri = uriBuilder.path("/atividades/{id}").buildAndExpand(atividadeCadastrada.getId()).toUri();
+        var uri = UriComponentsBuilder.newInstance().path("/atividades/{id}").buildAndExpand(atividadeCadastrada.getId()).toUri();
 
         AtividadeModel atividadeModel = atividadeMapper.toModel(atividadeCadastrada);
 
         return ResponseEntity.created(uri).body(atividadeModel);
+    }
+
+    @PutMapping("{atividadeId}")
+    public ResponseEntity<Void> iniciar(@PathVariable Integer atividadeId) {
+        cadastroAtividade.iniciar(atividadeId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("{atividadeId}")
+    public ResponseEntity<Void> finalizar(@PathVariable Integer atividadeId) {
+        cadastroAtividade.finalizar(atividadeId);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping

@@ -9,18 +9,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class CadastroAtividade {
     private final AtividadeRepository atividadeRepository;
-    private final CadastroRecurso cadastroRecurso;
-    private final CadastroParticipante cadastroParticipante;
 
-    public CadastroAtividade(AtividadeRepository atividadeRepository, CadastroRecurso cadastroRecurso, CadastroParticipante cadastroParticipante) {
+    public CadastroAtividade(AtividadeRepository atividadeRepository) {
         this.atividadeRepository = atividadeRepository;
-        this.cadastroRecurso = cadastroRecurso;
-        this.cadastroParticipante = cadastroParticipante;
     }
 
     @Transactional
     public Atividade cadastrar(Atividade atividade) {
         return atividadeRepository.save(atividade);
+    }
+
+    @Transactional
+    public void iniciar(Integer atividadeId) {
+        Atividade atividade = buscar(atividadeId);
+        if (atividade.isFinalizado()){
+            throw new RuntimeException("A Atividade está finalizada.");
+        }
+        atividade.iniciar();
+    }
+
+    @Transactional
+    public void finalizar(Integer atividadeId) {
+        Atividade atividade = buscar(atividadeId);
+        atividade.finalizar();
     }
 
     public Atividade buscar(Integer id) {

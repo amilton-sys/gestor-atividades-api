@@ -3,8 +3,6 @@ package com.sys.gestaoatividades.api.controller;
 import com.sys.gestaoatividades.api.assembler.ParticipanteMapper;
 import com.sys.gestaoatividades.api.model.ParticipanteModel;
 import com.sys.gestaoatividades.domain.model.Atividade;
-import com.sys.gestaoatividades.domain.model.Participante;
-import com.sys.gestaoatividades.domain.repository.AtividadeRepository;
 import com.sys.gestaoatividades.domain.service.CadastroAtividade;
 import com.sys.gestaoatividades.domain.service.CadastroParticipanteAtividade;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +27,17 @@ public class AtividadeCadastroParticipanteController {
     public ResponseEntity<Void> associar(@PathVariable Integer atividadeId, @PathVariable Integer participanteId) {
         cadastroParticipanteAtividade.associar(atividadeId, participanteId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("{participanteId}/presente")
+    public ResponseEntity<Void> presente(@PathVariable Integer atividadeId, @PathVariable Integer participanteId) {
+        cadastroParticipanteAtividade.presente(atividadeId, participanteId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("presentes")
+    public List<ParticipanteModel> presentes(@PathVariable Integer atividadeId) {
+        return participanteMapper.toCollectionModel(cadastroParticipanteAtividade.listarPresentes(atividadeId));
     }
 
     @GetMapping

@@ -15,6 +15,7 @@ public interface ParticipanteMapper {
     ParticipanteModel toModel(Participante participante);
 
 
+    @Mapping(target = "presente", ignore = true)
     @Mapping(target = "id", ignore = true)
     Participante toObject(ParticipanteInput participanteInput);
 

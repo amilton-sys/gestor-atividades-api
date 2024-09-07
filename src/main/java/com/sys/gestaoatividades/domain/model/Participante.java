@@ -19,4 +19,5 @@ public class Participante {
     private String telefone;
     @Embedded
     private Endereco endereco;
+    private boolean presente;
 }

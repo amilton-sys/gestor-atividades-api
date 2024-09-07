@@ -13,6 +13,7 @@ import java.util.List;
 public interface RecursoMapper {
     RecursoModel toModel(Recurso recurso);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "disponivel", ignore = true)
     Recurso toObject(RecursoInput recursoInput);
 

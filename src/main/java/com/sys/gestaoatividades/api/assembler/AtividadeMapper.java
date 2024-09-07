@@ -12,6 +12,9 @@ import java.util.List;
 public interface AtividadeMapper {
     AtividadeModel toModel(Atividade atividade);
 
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "dataInicio", ignore = true)
+    @Mapping(target = "dataFim", ignore = true)
     @Mapping(target = "recursos", ignore = true)
     @Mapping(target = "participantes", ignore = true)
     @Mapping(target = "id", ignore = true)
