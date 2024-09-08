@@ -1,5 +1,5 @@
 services:
-  postgres:
+  postgres-dev:
     image: 'postgres:latest'
     environment:
       - 'POSTGRES_DB=gestor-dev'
@@ -7,3 +7,12 @@ services:
       - 'POSTGRES_USER=myuser'
     ports:
       - '5433:5432'
+
+  postgres-test:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=gestor-test'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - '5434:5432'

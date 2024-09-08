@@ -27,11 +27,11 @@ public class RecursoController {
     }
 
     @PostMapping
-    public ResponseEntity<RecursoModel> cadastrar(@RequestBody @Valid RecursoInput recursoInput, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<RecursoModel> cadastrar(@RequestBody @Valid RecursoInput recursoInput) {
         Recurso recurso = recursoMapper.toObject(recursoInput);
         Recurso recursoCadastrado = cadastroRecurso.cadastrar(recurso);
 
-        var uri = uriBuilder.path("/recursos/{id}").buildAndExpand(recursoCadastrado.getId()).toUri();
+        var uri = UriComponentsBuilder.newInstance().path("/recursos/{id}").buildAndExpand(recursoCadastrado.getId()).toUri();
 
         RecursoModel recursoModel = recursoMapper.toModel(recursoCadastrado);
 

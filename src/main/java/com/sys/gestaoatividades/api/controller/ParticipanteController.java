@@ -1,10 +1,8 @@
 package com.sys.gestaoatividades.api.controller;
 
-import com.sys.gestaoatividades.api.assembler.EnderecoMapper;
 import com.sys.gestaoatividades.api.assembler.ParticipanteMapper;
 import com.sys.gestaoatividades.api.model.ParticipanteInput;
 import com.sys.gestaoatividades.api.model.ParticipanteModel;
-import com.sys.gestaoatividades.domain.model.Endereco;
 import com.sys.gestaoatividades.domain.model.Participante;
 import com.sys.gestaoatividades.domain.repository.ParticipanteRepository;
 import com.sys.gestaoatividades.domain.service.CadastroParticipante;
@@ -21,26 +19,21 @@ public class ParticipanteController {
     private final CadastroParticipante cadastroParticipante;
     private final ParticipanteRepository participanteRepository;
     private final ParticipanteMapper participanteMapper;
-    private final EnderecoMapper enderecoMapper;
 
-    public ParticipanteController(CadastroParticipante cadastroParticipante, ParticipanteRepository participanteRepository, ParticipanteMapper participanteMapper, EnderecoMapper enderecoMapper) {
+    public ParticipanteController(CadastroParticipante cadastroParticipante, ParticipanteRepository participanteRepository, ParticipanteMapper participanteMapper) {
         this.cadastroParticipante = cadastroParticipante;
         this.participanteRepository = participanteRepository;
         this.participanteMapper = participanteMapper;
-        this.enderecoMapper = enderecoMapper;
     }
 
 
     @PostMapping
-    public ResponseEntity<ParticipanteModel> cadastrar(@RequestBody @Valid ParticipanteInput participanteInput, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ParticipanteModel> cadastrar(@RequestBody @Valid ParticipanteInput participanteInput) {
 
-        System.out.println("Recebido ParticipanteInput: " + participanteInput);
         Participante participante = participanteMapper.toObject(participanteInput);
-        System.out.println("Participante: " + participante);
         Participante participanteCadastrado = cadastroParticipante.cadastrar(participante);
-        System.out.println("ParticipanteCadastrado: " + participanteCadastrado);
 
-        var uri = uriBuilder.path("/recursos/{id}").buildAndExpand(participanteCadastrado.getId()).toUri();
+        var uri = UriComponentsBuilder.newInstance().path("/participantes/{id}").buildAndExpand(participanteCadastrado.getId()).toUri();
 
         ParticipanteModel participanteModel = participanteMapper.toModel(participanteCadastrado);
 
